@@ -1,0 +1,5 @@
+class Order < ApplicationRecord
+  belongs_to :created_by
+  belongs_to :processed_by
+  belongs_to :address
+end
