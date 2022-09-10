@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_09_173849) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_09_234758) do
+  create_table "address_users", force: :cascade do |t|
+    t.string "Table"
+    t.integer "user_id", null: false
+    t.integer "address_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_id"], name: "index_address_users_on_address_id"
+    t.index ["user_id"], name: "index_address_users_on_user_id"
+  end
+
   create_table "addresses", force: :cascade do |t|
     t.string "address_line1"
     t.string "address_line2"
@@ -48,6 +58,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_09_173849) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "address_users", "addresses"
+  add_foreign_key "address_users", "users"
   add_foreign_key "orders", "addresses"
   add_foreign_key "orders", "users", column: "created_by_id"
   add_foreign_key "orders", "users", column: "processed_by_id"
